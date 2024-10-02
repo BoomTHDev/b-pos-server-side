@@ -12,7 +12,7 @@ type RemoveFoodTypeBtnProps = {
 
 export default function RemoveFoodTypeBtn({ id }: RemoveFoodTypeBtnProps) {
 
-    const [isPending, startTransition] = useTransition()
+    const [, startTransition] = useTransition()
 
     const handleRemove = async () => {
         toast(({ closeToast }) => (

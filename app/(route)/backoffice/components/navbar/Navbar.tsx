@@ -1,6 +1,6 @@
 'use client'
 
-import { Menu, X } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { useRecoilState } from 'recoil'
 import { sideNavState } from '@/store/state/side-nav-state'
 import { Button } from '@/components/ui/button'

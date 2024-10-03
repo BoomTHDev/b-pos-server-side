@@ -5,8 +5,13 @@ import * as jose from 'jose'
 export async function middleware(request: NextRequest) {
     const tokenUser = request.cookies.get('token_user')?.value
 
+    const rootPath = request.nextUrl.pathname === '/'
     const signInPath = request.nextUrl.pathname === '/signin'
     const backofficeRoute = request.nextUrl.pathname.startsWith('/backoffice')
+
+    if (rootPath) {
+        return NextResponse.redirect(new URL('/signin', request.url))
+    }
 
     if (tokenUser) {
         try {
@@ -46,5 +51,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/backoffice/:path*', '/signin']
+    matcher: ['/backoffice/:path*', '/signin', '/']
 }

@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "dotenv -e .env.development -- bunx prisma db push && bunx prisma generate && next dev",
-    "build": "dotenv -e .env.production -- bunx prisma db push && next build",
-    "start": "dotenv -e .env.production -- bunx prisma generate && next start",
+    "build": "bunx prisma db push && next build",
+    "start": "bunx prisma generate && next start",
     "lint": "next lint"
   },
   "dependencies": {

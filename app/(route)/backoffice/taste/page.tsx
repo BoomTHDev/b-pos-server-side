@@ -35,8 +35,7 @@ export default async function TastePage() {
 
                 <TableBody>
                     {tastes?.map(item => (
-                        <div key={item.id}>
-                            <TableRow>
+                            <TableRow key={item.id}>
                                 <TableCell className="font-medium">{item.id}</TableCell>
                                 <TableCell>{item.FoodType.name}</TableCell>
                                 <TableCell>{item.name}</TableCell>
@@ -51,7 +50,6 @@ export default async function TastePage() {
                                     <RemoveTasteBtn id={item.id} />
                                 </TableCell>
                             </TableRow>
-                        </div>
                     ))}
                 </TableBody>
             </Table>

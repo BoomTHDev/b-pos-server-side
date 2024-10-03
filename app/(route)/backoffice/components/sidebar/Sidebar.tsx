@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import { LayoutGrid, List } from 'lucide-react'
+import { LayoutGrid, List, FilePlus } from 'lucide-react'
 import Menus from './Menus'
 import Menu from './Menu'
 import { useRecoilValue } from 'recoil'
@@ -49,6 +49,7 @@ export default function Sidebar({ title, username, role }: SidebarProps) {
                 <Menus>
                     <Menu title='ประเภทอาหาร' path='/backoffice/food-type' Icon={LayoutGrid} />
                     <Menu title='ขนาด' path='/backoffice/food-size' Icon={List} />
+                    <Menu title='รสชาติอาหาร' path='/backoffice/taste' Icon={FilePlus} />
                 </Menus>
 
             </div>

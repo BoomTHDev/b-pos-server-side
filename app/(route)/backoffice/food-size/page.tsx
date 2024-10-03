@@ -1,8 +1,10 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import AddFoodSizeBtn from "../components/button/AddFoodSizeBtn";
+import AddFoodSizeBtn from "../components/button/foodsize/AddFoodSizeBtn";
 import { getFoodSize, getFoodType } from "@/actions/food-action";
-import RemoveFoodSizeBtn from "../components/button/RemoveFoodSizeBtn";
-import EditFoodSizeBtn from "../components/button/EditFoodSizeBtn";
+import RemoveFoodSizeBtn from "../components/button/foodsize/RemoveFoodSizeBtn";
+import EditFoodSizeBtn from "../components/button/foodsize/EditFoodSizeBtn";
+
+export const revalidate = 0
 
 export default async function FoodSizePage() {
 
@@ -36,8 +38,8 @@ export default async function FoodSizePage() {
 
                 <TableBody>
                     {foodSize?.map(item => (
-                        <>
-                        <TableRow key={item.id}>
+                        <div key={item.id}>
+                        <TableRow>
                             <TableCell className="font-medium">{item.id}</TableCell>
                             <TableCell>{item.FoodType.name}</TableCell>
                             <TableCell>{item.name}</TableCell>
@@ -53,7 +55,7 @@ export default async function FoodSizePage() {
                                 <RemoveFoodSizeBtn id={item.id} />
                             </TableCell>
                         </TableRow>
-                    </>
+                    </div>
                     ))}
                 </TableBody>
 

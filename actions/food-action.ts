@@ -56,7 +56,7 @@ export async function removeFoodType(id: string) {
                 status: 'not_active'
             }
         })
-    
+
         revalidatePath('/backoffice/food-type')
         return { message: 'ลบข้อมูลสําเร็จ', status: true }
     } catch (error: any) {
@@ -71,7 +71,7 @@ export async function editFoodType(formData: FormData) {
     const name = formData.get('name') as string
     const remark = formData.get('remark') as string
     const status = formData.get('status') as string
-    
+
     try {
         await db.foodType.update({
             where: {
@@ -151,7 +151,7 @@ export async function removeFoodSize(id: string) {
                 status: 'not_active'
             }
         })
-    
+
         revalidatePath('/backoffice/food-size')
         return { message: 'ลบข้อมูลสําเร็จ', status: true }
     } catch (error: any) {
@@ -170,7 +170,7 @@ export async function editFoodSize(formData: FormData) {
     const foodTypeId = formData.get('food_type_id') as string
 
     console.log(id, name, remark, status, moneyAdded, foodTypeId)
-    
+
     try {
         await db.foodSize.update({
             where: {
@@ -187,6 +187,101 @@ export async function editFoodSize(formData: FormData) {
 
         revalidatePath('/backoffice/food-size')
         return { message: 'อัพเดทข้อมูลสำเร็จ', status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+// taste
+export async function getTastes() {
+    try {
+        const tastes = await db.taste.findMany({
+            where: {
+                status: 'active'
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                FoodType: true
+            }
+        })
+
+        return { tastes, status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+export async function addTaste(formData: FormData) {
+    const name = formData.get('name') as string
+    const remark = formData.get('remark') as string
+    const foodTypeId = formData.get('food_type_id') as string
+
+    try {
+        if (!name || !remark || !foodTypeId) {
+            return { error: 'กรุณาใส่ข้อมูลให้ครบถ้วน', status: false }
+        }
+
+        await db.taste.create({
+            data: {
+                name,
+                remark,
+                foodTypeId
+            }
+        })
+
+        revalidatePath('/backoffice/taste')
+        return { message: 'เพิ่มข้อมูลสารเร็จ', status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+export async function editTaste(formData: FormData) {
+    const id = formData.get('id') as string
+    const name = formData.get('name') as string
+    const remark = formData.get('remark') as string
+    const status = formData.get('status') as string
+    const foodTypeId = formData.get('food_type_id') as string
+
+    try {
+        await db.taste.update({
+            where: {
+                id
+            },
+            data: {
+                name,
+                remark,
+                foodTypeId,
+                status
+            }
+        })
+
+        revalidatePath('/backoffice/taste')
+        return { message: 'อัพเดทข้อมูลสำเร็จ', status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+export async function removeTaste(id: string) {
+    try {
+        await db.taste.update({
+            where: {
+                id
+            },
+            data: {
+                status: 'not_active'
+            }
+        })
+
+        revalidatePath('/backoffice/taste')
+        return { message: 'ลบข้อมูลสําเร็จ', status: true }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }

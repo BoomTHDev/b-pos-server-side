@@ -1,49 +1,24 @@
 'use client'
 
-import { editFoodSize } from '@/actions/food-action'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
-import { Save } from 'lucide-react'
-import { toast } from 'react-toastify'
+import { editTaste } from "@/actions/food-action"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { FoodType, Taste } from "@prisma/client"
+import { Save } from "lucide-react"
+import { toast } from "react-toastify"
 
-type FoodType = {
-    id: string
-    name: string
-    remark: string | null
-    status: string
-    createdAt: Date
-    updatedAt: Date
-}
-
-type FormEditFoodTypeProps = {
+type FormEditTasteProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
-    foodSize: {
-        id: string
-        name: string
-        remark: string
-        moneyAdded: number
-        status: string
-        foodTypeId: string
-        FoodType: FoodType
-        createdAt: Date
-        updatedAt: Date
-    }
+    tastes: Taste
     foodType: FoodType[]
 }
 
-
-export default function FormEditFoodType({ setOpen, foodSize, foodType }: FormEditFoodTypeProps) {
+export default function FormEditTaste({ setOpen, tastes, foodType }: FormEditTasteProps) {
 
     const handleSave = async (formData: FormData) => {
-        const response = await editFoodSize(formData)
+        const response = await editTaste(formData)
         if (response.status === true) {
             toast.success(response.message, {
                 position: 'top-right',
@@ -66,14 +41,14 @@ export default function FormEditFoodType({ setOpen, foodSize, foodType }: FormEd
             <Input
                 type='hidden'
                 name='id'
-                defaultValue={foodSize.id}
+                defaultValue={tastes.id}
                 className='focus:outline-none'
             />
             <div className='grid gap-3'>
                 <Label className='text-sm'>ประเภท</Label>
                 <Select
                     name='food_type_id'
-                    defaultValue={foodSize.FoodType.id}
+                    defaultValue={tastes.foodTypeId}
                 >
                     <SelectTrigger>
                         <SelectValue placeholder='เลือกประเภท' />
@@ -90,17 +65,7 @@ export default function FormEditFoodType({ setOpen, foodSize, foodType }: FormEd
                 <Input
                     type='text'
                     name='name'
-                    defaultValue={foodSize.name}
-                    className='focus:outline-none'
-                />
-            </div>
-
-            <div className='grid gap-3'>
-                <Label className='text-sm'>คิดเงินเพิ่ม (บาท)</Label>
-                <Input
-                    type='number'
-                    name='money_added'
-                    defaultValue={foodSize.moneyAdded}
+                    defaultValue={tastes.name}
                     className='focus:outline-none'
                 />
             </div>
@@ -110,7 +75,7 @@ export default function FormEditFoodType({ setOpen, foodSize, foodType }: FormEd
                 <Input
                     type='text'
                     name='remark'
-                    defaultValue={foodSize.remark}
+                    defaultValue={tastes.remark}
                     className='focus:outline-none'
                 />
             </div>
@@ -118,7 +83,7 @@ export default function FormEditFoodType({ setOpen, foodSize, foodType }: FormEd
                 <Label className='text-sm'>หมายเหตุ</Label>
                 <Select
                     name='status'
-                    defaultValue={foodSize.status}
+                    defaultValue={tastes.status}
                 >
                     <SelectTrigger>
                         <SelectValue placeholder="สถานะ" />

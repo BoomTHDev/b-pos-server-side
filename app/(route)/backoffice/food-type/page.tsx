@@ -7,9 +7,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import RemoveFoodTypeBtn from '@/app/(route)/backoffice/components/button/RemoveFoodTypeBtn'
-import EditFoodTypeBtn from '@/app/(route)/backoffice/components/button/EditFoodTypeBtn'
-import AddFoodTypeBtn from '../components/button/AddFoodTypeBtn'
+import RemoveFoodTypeBtn from '@/app/(route)/backoffice/components/button/foodtype/RemoveFoodTypeBtn'
+import EditFoodTypeBtn from '@/app/(route)/backoffice/components/button/foodtype/EditFoodTypeBtn'
+import AddFoodTypeBtn from '../components/button/foodtype/AddFoodTypeBtn'
+
+export const revalidate = 0
 
 
 export default async function FoodTypePage() {

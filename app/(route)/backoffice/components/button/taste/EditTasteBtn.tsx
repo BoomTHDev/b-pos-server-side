@@ -1,39 +1,21 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Pencil } from 'lucide-react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { useState } from 'react'
-import FormEditFoodSize from '../form/FormEditFoodSize'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Pencil } from 'lucide-react'
+import { FoodType, Taste } from '@prisma/client'
+import FormEditTaste from '../../form/taste/FormEditTaste'
 
-type FoodType = {
-    id: string
-    name: string
-    remark: string | null
-    status: string
-    createdAt: Date
-    updatedAt: Date
-}
-
-type EditFoodSizeBtnProps = {
-    foodSize: {
-        id: string
-        name: string
-        remark: string
-        moneyAdded: number
-        status: string
-        foodTypeId: string
-        FoodType: FoodType
-        createdAt: Date
-        updatedAt: Date
-    }
+type EditTasteBtnProps = {
+    tastes: Taste
     foodType: FoodType[]
 }
 
-export default function EditFoodTypeBtnEditFoodTypeBtn({ foodSize, foodType }: EditFoodSizeBtnProps) {
+export default function EditTasteBtn({ tastes, foodType }: EditTasteBtnProps) {
 
     const [open, setOpen] = useState(false)
-
+    
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -46,7 +28,7 @@ export default function EditFoodTypeBtnEditFoodTypeBtn({ foodSize, foodType }: E
                     <DialogTitle>แก้ไขข้อมูล</DialogTitle>
                 </DialogHeader>
 
-                <FormEditFoodSize setOpen={setOpen} foodSize={foodSize} foodType={foodType} />
+                <FormEditTaste setOpen={setOpen} tastes={tastes} foodType={foodType} />
             </DialogContent>
         </Dialog>
     )

@@ -1,10 +1,10 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogHeader, DialogTrigger, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { Plus } from 'lucide-react'
-import FormAddFoodSize from '../form/FormAddFoodSize'
 import { useState } from 'react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Plus } from 'lucide-react'
+import FormAddTaste from '../../form/taste/FormAddTaste'
 
 type FoodType = {
     id: string
@@ -15,11 +15,11 @@ type FoodType = {
     updatedAt: Date
 }
 
-type FormAddFoodSizeProps = {
+type AddTasteBtnProps = {
     foodType: FoodType[]
 }
 
-export default function AddFoodSizeBtn({ foodType }: FormAddFoodSizeProps) {
+export default function AddTasteBtn({ foodType }: AddTasteBtnProps) {
 
     const [open, setOpen] = useState(false)
 
@@ -32,9 +32,9 @@ export default function AddFoodSizeBtn({ foodType }: FormAddFoodSizeProps) {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>ขนาดอาหาร</DialogTitle>
+                    <DialogTitle>รสชาติอาการ</DialogTitle>
                 </DialogHeader>
-                <FormAddFoodSize setOpen={setOpen} foodType={foodType} />
+                <FormAddTaste setOpen={setOpen} foodType={foodType} />
             </DialogContent>
         </Dialog>
     )

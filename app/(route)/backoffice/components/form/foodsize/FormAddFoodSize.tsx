@@ -1,6 +1,6 @@
 'use client'
 
-import { addFoodSize} from '@/actions/food-action'
+import { addFoodSize } from '@/actions/food-action'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

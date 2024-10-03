@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Pencil } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { useState } from 'react'
-import FormEditFoodType from '@/app/(route)/backoffice/components/form/FormEditFoodType'
+import FormEditFoodType from '@/app/(route)/backoffice/components/form/foodtype/FormEditFoodType'
 
 type EditFoodTypeBtnProps = {
     foodType: {

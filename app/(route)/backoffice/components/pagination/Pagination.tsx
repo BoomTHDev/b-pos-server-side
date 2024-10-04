@@ -22,9 +22,14 @@ export default function Pagination({ total }: PaginationProps) {
     const hasNext = ITEM_PER_PAGE * Number(page) < total
 
     const handleChangePage = (type: string) => {
-        type === 'prev' ? params.set('page', (Number(page) - 1).toString()) : params.set('page', (Number(page) + 1).toString())
+        if (type === 'prev') {
+            params.set('page', (Number(page) - 1).toString())
+        } else {
+            params.set('page', (Number(page) + 1).toString())
+        }
         replace(`${pathname}?${params}`)
     }
+    
 
     return (
         <div className='p-2.5 flex justify-between'>

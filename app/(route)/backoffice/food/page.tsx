@@ -2,15 +2,27 @@ import { getFoodType, getFoods } from "@/actions/food-action";
 import AddFoodBtn from "../components/button/food/AddFoodBtn";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import Image from 'next/image'
+import Pagination from "../components/pagination/Pagination";
+import Search from "../components/search/Search";
 
 export const revalidate = 0
 
-export default async function FoodPage() {
+type FoodPageProps = {
+    searchParams: {
+      q: string
+      page: string
+    }
+}
 
-    const [foodTypeResult, foodsResult] = await Promise.all([getFoodType(), getFoods()])
+export default async function FoodPage({ searchParams }: FoodPageProps) {
+
+    const q = searchParams?.q ?? ''
+    const page = searchParams?.page ?? '1'
+
+    const [foodTypeResult, foodsResult] = await Promise.all([getFoodType(q, page), getFoods(q, page)])
 
     const { foodType } = foodTypeResult
-    const { foods } = foodsResult
+    const { foods, totalFoods } = foodsResult
 
     const getFoodTypeName = (type: string) => {
         if (type === 'food') {
@@ -25,7 +37,8 @@ export default async function FoodPage() {
             <div className='flex justify-between items-center px-4 py-2'>
                 <h2 className='text-2xl'>อาหาร</h2>
 
-                <div>
+                <div className='flex gap-2 items-center'>
+                    <Search placeholder='ค้นหา' />
                     <AddFoodBtn foodType={foodType ?? []} />
                 </div>
             </div>
@@ -53,6 +66,7 @@ export default async function FoodPage() {
                                         src={item.image}
                                         width={200}
                                         height={200}
+                                        className='object-cover rounded-md'
                                     />
                                 </TableCell>
                                 <TableCell>{getFoodTypeName(item.foodType)}</TableCell>
@@ -73,6 +87,8 @@ export default async function FoodPage() {
                     ))}
                 </TableBody>
             </Table>
+
+            <Pagination total={Number(totalFoods)} />
         </div>
     )
 }

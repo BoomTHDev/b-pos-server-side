@@ -10,20 +10,33 @@ import {
 import RemoveFoodTypeBtn from '@/app/(route)/backoffice/components/button/foodtype/RemoveFoodTypeBtn'
 import EditFoodTypeBtn from '@/app/(route)/backoffice/components/button/foodtype/EditFoodTypeBtn'
 import AddFoodTypeBtn from '../components/button/foodtype/AddFoodTypeBtn'
+import Pagination from '../components/pagination/Pagination'
+import Search from '../components/search/Search'
 
 export const revalidate = 0
 
+type FoodTypePageProps = {
+    searchParams: {
+        q: string
+        page: string
+    }
+}
 
-export default async function FoodTypePage() {
 
-    const { foodType } = await getFoodType()
+export default async function FoodTypePage({ searchParams }: FoodTypePageProps) {
+
+    const q = searchParams?.q ?? ''
+    const page = searchParams?.page ?? '1'
+
+    const { foodType, totalFoodType } = await getFoodType(q, page)
 
     return (
         <div>
             <div className='flex justify-between items-center px-4 py-2'>
                 <h2 className='text-2xl'>ประเภทอาหาร/เครื่องดื่ม</h2>
 
-                <div>
+                <div className='flex gap-2 items-center'>
+                    <Search placeholder='ค้นหา' />
                     <AddFoodTypeBtn />
                 </div>
             </div>
@@ -61,7 +74,7 @@ export default async function FoodTypePage() {
 
             </Table>
 
-
+            <Pagination total={Number(totalFoodType)} />
         </div>
     )
 }

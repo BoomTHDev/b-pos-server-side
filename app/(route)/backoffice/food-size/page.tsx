@@ -3,15 +3,27 @@ import AddFoodSizeBtn from "../components/button/foodsize/AddFoodSizeBtn";
 import { getFoodSize, getFoodType } from "@/actions/food-action";
 import RemoveFoodSizeBtn from "../components/button/foodsize/RemoveFoodSizeBtn";
 import EditFoodSizeBtn from "../components/button/foodsize/EditFoodSizeBtn";
+import Pagination from "../components/pagination/Pagination";
+import Search from "../components/search/Search";
 
 export const revalidate = 0
 
-export default async function FoodSizePage() {
+type FoodSizePageProps = {
+    searchParams: {
+        q: string
+        page: string
+    }
+}
 
-    const [foodTypeResult, foodSizeResult] = await Promise.all([getFoodType(), getFoodSize()])
+export default async function FoodSizePage({ searchParams }: FoodSizePageProps) {
+
+    const q = searchParams?.q ?? ''
+    const page = searchParams?.page ?? '1'
+
+    const [foodTypeResult, foodSizeResult] = await Promise.all([getFoodType(q, page), getFoodSize(q, page)])
 
     const { foodType } = foodTypeResult
-    const { foodSize } = foodSizeResult
+    const { foodSize, totalFoodSize } = foodSizeResult
 
 
     return (
@@ -19,7 +31,8 @@ export default async function FoodSizePage() {
             <div className='flex justify-between items-center px-4 py-2'>
                 <h2 className='text-2xl'>ขนาดอาหาร</h2>
 
-                <div>
+                <div className='flex items-center gap-2'>
+                    <Search placeholder='ค้นหา' />
                     <AddFoodSizeBtn foodType={foodType ?? []} />
                 </div>
             </div>
@@ -60,6 +73,8 @@ export default async function FoodSizePage() {
                 </TableBody>
 
             </Table>
+
+            <Pagination total={Number(totalFoodSize)} />
         </div>
     )
 }

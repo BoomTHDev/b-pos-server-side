@@ -30,17 +30,29 @@ export async function addFoodType(formData: FormData) {
     }
 }
 
-export async function getFoodType() {
+export async function getFoodType(q: string, page: string) {
+    const ITEM_PER_PAGE = 5
     try {
-        const foodType = await db.foodType.findMany({
+        const totalFoodType = await db.foodType.count({
             where: {
                 status: 'active'
+            }
+        })
+        const foodType = await db.foodType.findMany({
+            where: {
+                status: 'active',
+                name: {
+                    contains: q,
+                    mode: 'insensitive'
+                }
             },
             orderBy: {
                 createdAt: 'desc'
-            }
+            },
+            skip: (Number(page) - 1) * ITEM_PER_PAGE,
+            take: ITEM_PER_PAGE,
         })
-        return { foodType, status: true }
+        return { foodType, totalFoodType, status: true }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }
@@ -94,8 +106,14 @@ export async function editFoodType(formData: FormData) {
 }
 
 // food-size
-export async function getFoodSize() {
+export async function getFoodSize(q: string, page: string) {
+    const ITEM_PER_PAGE = 5
     try {
+        const totalFoodSize = await db.foodSize.count({
+            where: {
+                status: 'active'
+            }
+        })
         const foodSize = await db.foodSize.findMany({
             where: {
                 status: 'active'
@@ -107,7 +125,7 @@ export async function getFoodSize() {
                 FoodType: true
             }
         })
-        return { foodSize, status: true }
+        return { foodSize, totalFoodSize, status: true }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }
@@ -195,11 +213,21 @@ export async function editFoodSize(formData: FormData) {
 }
 
 // taste
-export async function getTastes() {
+export async function getTastes(q: string, page: string) {
+    const ITEM_PER_PAGE = 5
     try {
-        const tastes = await db.taste.findMany({
+        const totalTastes = await db.taste.count({
             where: {
                 status: 'active'
+            }
+        })
+        const tastes = await db.taste.findMany({
+            where: {
+                status: 'active',
+                name: {
+                    contains: q,
+                    mode: 'insensitive'
+                }
             },
             orderBy: {
                 createdAt: 'desc'
@@ -209,7 +237,7 @@ export async function getTastes() {
             }
         })
 
-        return { tastes, status: true }
+        return { tastes, totalTastes, status: true }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }
@@ -341,21 +369,33 @@ export async function uploadImageFood(image: File) {
 
 }
 
-export async function getFoods() {
+export async function getFoods(q: string, page: string) {
+    const ITEM_PER_PAGE = 5
     try {
-        const foods = await db.food.findMany({
+        const totalFoods = await db.food.count({
             where: {
                 status: 'active'
+            }
+        })
+        const foods = await db.food.findMany({
+            where: {
+                status: 'active',
+                name: {
+                    contains: q,
+                    mode: 'insensitive'
+                }
             },
             orderBy: {
                 createdAt: 'desc'
             },
+            skip: (Number(page) - 1) * ITEM_PER_PAGE,
+            take: ITEM_PER_PAGE,
             include: {
                 FoodType: true
             }
         })
 
-        return { foods, status: true }
+        return { foods, totalFoods, status: true }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }

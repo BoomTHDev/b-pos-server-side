@@ -1,12 +1,13 @@
 'use client'
 
 import Image from "next/image";
-import { LayoutGrid, List, FilePlus } from 'lucide-react'
+import { LayoutGrid, List, FilePlus, Utensils } from 'lucide-react'
 import Menus from './Menus'
 import Menu from './Menu'
 import { useRecoilValue } from 'recoil'
 import { sideNavState } from '@/store/state/side-nav-state'
 import SignOutBtn from "./SignOutBtn";
+import Link from 'next/link'
 
 type SidebarProps = {
     title: string
@@ -25,8 +26,8 @@ export default function Sidebar({ title, username, role }: SidebarProps) {
             {/* parse 1 */}
             <div>
                 {/* Shop Name */}
-                <div className='p-4 border-b border-b-gray-400'>
-                    <h1 className='text-center text-2xl font-semibold'>{title}</h1>
+                <div className='p-4 border-b border-b-gray-400 text-center'>
+                    <Link href='/' className='text-2xl font-semibold'>{title}</Link>
                 </div>
 
                 {/* Profile */}
@@ -50,6 +51,7 @@ export default function Sidebar({ title, username, role }: SidebarProps) {
                     <Menu title='ประเภทอาหาร' path='/backoffice/food-type' Icon={LayoutGrid} />
                     <Menu title='ขนาด' path='/backoffice/food-size' Icon={List} />
                     <Menu title='รสชาติอาหาร' path='/backoffice/taste' Icon={FilePlus} />
+                    <Menu title='อาหาร' path='/backoffice/food' Icon={Utensils} />
                 </Menus>
 
             </div>

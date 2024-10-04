@@ -8,8 +8,10 @@ export const revalidate = 0
 
 export default async function FoodSizePage() {
 
-    const { foodType } = await getFoodType()
-    const { foodSize } = await getFoodSize()
+    const [foodTypeResult, foodSizeResult] = await Promise.all([getFoodType(), getFoodSize()])
+
+    const { foodType } = foodTypeResult
+    const { foodSize } = foodSizeResult
 
 
     return (

@@ -8,16 +8,16 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url      = env("DATABASE_URL")
 }
+
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+//   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+// }
 
 model User {
   id        String   @id @default(uuid())
@@ -38,6 +38,7 @@ model FoodType {
   updatedAt DateTime   @updatedAt
   FoodSize  FoodSize[]
   Taste     Taste[]
+  Food      Food[]
 }
 
 model FoodSize {
@@ -57,6 +58,19 @@ model Taste {
   name       String
   remark     String
   status     String   @default("active")
+  foodTypeId String
+  FoodType   FoodType @relation(fields: [foodTypeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Food {
+  id         String   @id @default(uuid())
+  name       String
+  remark     String
+  image      String
+  status     String   @default("active")
+  price      Int
   foodTypeId String
   FoodType   FoodType @relation(fields: [foodTypeId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())

@@ -4,17 +4,17 @@ import { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
-import FormAddTaste from '../../form/taste/FormAddTaste'
+import FormAddFood from '@/app/(route)/backoffice/components/form/food/FormAddFood'
 import { FoodType } from '@prisma/client'
 
-type AddTasteBtnProps = {
+type AddFoodBtnProps = {
     foodType: FoodType[]
 }
 
-export default function AddTasteBtn({ foodType }: AddTasteBtnProps) {
+export default function AddFoodBtn({ foodType }: AddFoodBtnProps) {
 
     const [open, setOpen] = useState(false)
-
+    
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -24,9 +24,9 @@ export default function AddTasteBtn({ foodType }: AddTasteBtnProps) {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>รสชาติอาหาร</DialogTitle>
+                    <DialogTitle>เพิ่มอาหาร</DialogTitle>
                 </DialogHeader>
-                <FormAddTaste setOpen={setOpen} foodType={foodType} />
+                <FormAddFood setOpen={setOpen} foodType={foodType} />
             </DialogContent>
         </Dialog>
     )

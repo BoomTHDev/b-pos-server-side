@@ -1,34 +1,33 @@
-import { getFoodType, getTastes } from '@/actions/food-action'
-import AddTasteBtn from '@/app/(route)/backoffice/components/button/taste/AddTasteBtn'
+import { getFoodType, getFoods } from "@/actions/food-action";
+import AddFoodBtn from "../components/button/food/AddFoodBtn";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import EditTasteBtn from '../components/button/taste/EditTasteBtn'
-import RemoveTasteBtn from '../components/button/taste/RemoveTasteBtn'
+import Image from 'next/image'
 
 export const revalidate = 0
 
-export default async function TastePage() {
+export default async function FoodPage() {
 
-    const [foodTypeResult, tastesResult] = await Promise.all([getFoodType(), getTastes()])
+    const [foodTypeResult, foodsResult] = await Promise.all([getFoodType(), getFoods()])
 
     const { foodType } = foodTypeResult
-    const { tastes } = tastesResult
+    const { foods } = foodsResult
 
     return (
         <div>
             <div className='flex justify-between items-center px-4 py-2'>
-                <h2 className='text-2xl'>รสชาติอาหาร</h2>
+                <h2 className='text-2xl'>อาหาร</h2>
 
                 <div>
-                    <AddTasteBtn foodType={foodType ?? []} />
+                    <AddFoodBtn foodType={foodType ?? []} />
                 </div>
             </div>
 
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className='w-1/4'>ไอดี</TableHead>
-                        <TableHead>ประเภท</TableHead>
+                        <TableHead className='w-1/4'>ภาพ</TableHead>
                         <TableHead>ชื่อ</TableHead>
+                        <TableHead>ประเภท</TableHead>
                         <TableHead>หมายเหตุ</TableHead>
                         <TableHead>สถานะ</TableHead>
                         <TableHead>Action</TableHead>
@@ -36,11 +35,18 @@ export default async function TastePage() {
                 </TableHeader>
 
                 <TableBody>
-                    {tastes?.map(item => (
+                    {foods?.map(item => (
                             <TableRow key={item.id}>
-                                <TableCell className="font-medium">{item.id}</TableCell>
-                                <TableCell>{item.FoodType.name}</TableCell>
+                                <TableCell>
+                                    <Image
+                                        alt=''
+                                        src={item.image}
+                                        width={200}
+                                        height={200}
+                                    />
+                                </TableCell>
                                 <TableCell>{item.name}</TableCell>
+                                <TableCell>{item.FoodType.name}</TableCell>
                                 <TableCell>{item.remark || '-'}</TableCell>
                                 <TableCell className='text-start'>
                                     {item.status === 'active' && (
@@ -48,8 +54,8 @@ export default async function TastePage() {
                                     )}
                                 </TableCell>
                                 <TableCell className='flex gap-2'>
-                                    <EditTasteBtn tastes={item} foodType={foodType ?? []} />
-                                    <RemoveTasteBtn id={item.id} />
+                                    {/* <EditTasteBtn tastes={item} foodType={foodType ?? []} />
+                                    <RemoveTasteBtn id={item.id} /> */}
                                 </TableCell>
                             </TableRow>
                     ))}

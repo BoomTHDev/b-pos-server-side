@@ -5,16 +5,7 @@ import { Pencil } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { useState } from 'react'
 import FormEditFoodSize from '../../form/foodsize/FormEditFoodSize'
-import { FoodSize } from '@prisma/client'
-
-type FoodType = {
-    id: string
-    name: string
-    remark: string | null
-    status: string
-    createdAt: Date
-    updatedAt: Date
-}
+import { FoodSize, FoodType } from '@prisma/client'
 
 type EditFoodSizeBtnProps = {
     foodSize: FoodSize

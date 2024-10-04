@@ -1,5 +1,6 @@
 'use server'
 
+import cloudinary from '@/lib/cloudinary'
 import { db } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
 
@@ -282,6 +283,77 @@ export async function removeTaste(id: string) {
 
         revalidatePath('/backoffice/taste')
         return { message: 'ลบข้อมูลสําเร็จ', status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+// food
+export async function addFood(formData: FormData) {
+    const name = formData.get('name') as string
+    const remark = formData.get('remark') as string
+    const foodTypeId = formData.get('food_type_id') as string
+    const image = formData.get('image') as File
+    const price = formData.get('price') as string
+
+    const { imageUrl } = await uploadImageFood(image)
+
+    try {
+        if (!name || !remark || !foodTypeId || !imageUrl) {
+            return { error: 'กรุณาใส่ข้อมูลให้ครบถ้วน', status: false }
+        }
+
+        await db.food.create({
+            data: {
+                name,
+                remark,
+                foodTypeId,
+                image: imageUrl,
+                price: Number(price)
+            }
+        })
+
+        return { message: 'เพิ่มข้อมูลสำเร็จ', status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+export async function uploadImageFood(image: File) {
+    const arrayBuffer = await image.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
+    const uploadImageResponse = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream({ folder: 'food_Image_b-pos' }, (error, result) => {
+            if (error) {
+                reject(error)
+                return
+            }
+            resolve(result)
+        }).end(buffer)
+    })
+
+    const imageUrl = (uploadImageResponse as any).secure_url
+    return { imageUrl }
+
+}
+
+export async function getFoods() {
+    try {
+        const foods = await db.food.findMany({
+            where: {
+                status: 'active'
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                FoodType: true
+            }
+        })
+
+        return { foods, status: true }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }

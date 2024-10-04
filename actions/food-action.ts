@@ -312,7 +312,7 @@ export async function addFood(formData: FormData) {
                 foodTypeId,
                 image: imageUrl,
                 price: Number(price),
-                foodType
+                foodType: foodType
             }
         })
 

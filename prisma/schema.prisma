@@ -71,6 +71,7 @@ model Food {
   image      String
   status     String   @default("active")
   price      Int
+  foodType   String   @default("food")
   foodTypeId String
   FoodType   FoodType @relation(fields: [foodTypeId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())

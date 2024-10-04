@@ -1,7 +1,6 @@
 'use client'
 
 import { editFoodSize } from '@/actions/food-action'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -12,7 +11,6 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { FoodSize, FoodType } from '@prisma/client'
-import { Save } from 'lucide-react'
 import { toast } from 'react-toastify'
 import SubmitFormBtn from '../../button/SubmitFormAddBtn'
 

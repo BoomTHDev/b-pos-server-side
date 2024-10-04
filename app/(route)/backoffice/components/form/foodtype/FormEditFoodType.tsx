@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select'
 import { Save } from 'lucide-react'
 import { toast } from 'react-toastify'
+import SubmitFormBtn from '../../button/SubmitFormAddBtn'
 
 type FormEditFoodTypeProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -89,10 +90,7 @@ export default function FormEditFoodType({ setOpen, foodType }: FormEditFoodType
                     </SelectContent>
                 </Select>
             </div>
-            <Button type='submit' className='flex items-center gap-1'>
-                <Save size={16} />
-                บันทึก
-            </Button>
+            <SubmitFormBtn />
         </form>
     )
 }

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Save } from 'lucide-react'
 import { toast } from 'react-toastify'
+import SubmitFormBtn from '../../button/SubmitFormAddBtn'
 
 type FormAddFoodTypeProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -52,10 +53,7 @@ export default function FormAddFoodType({ setOpen }: FormAddFoodTypeProps) {
                     className='focus:outline-none'
                 />
             </div>
-            <Button type='submit' className='flex items-center gap-1'>
-                <Save size={16} />
-                บันทึก
-            </Button>
+            <SubmitFormBtn />
         </form>
     )
 }

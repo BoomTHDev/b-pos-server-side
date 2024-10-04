@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FoodType, Taste } from "@prisma/client"
 import { Save } from "lucide-react"
 import { toast } from "react-toastify"
+import SubmitFormBtn from "../../button/SubmitFormAddBtn"
 
 type FormEditTasteProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -95,10 +96,7 @@ export default function FormEditTaste({ setOpen, tastes, foodType }: FormEditTas
                     </SelectContent>
                 </Select>
             </div>
-            <Button type='submit' className='flex items-center gap-1'>
-                <Save size={16} />
-                บันทึก
-            </Button>
+            <SubmitFormBtn />
         </form>
     )
 }

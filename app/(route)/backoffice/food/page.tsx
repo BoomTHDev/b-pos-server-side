@@ -12,6 +12,14 @@ export default async function FoodPage() {
     const { foodType } = foodTypeResult
     const { foods } = foodsResult
 
+    const getFoodTypeName = (type: string) => {
+        if (type === 'food') {
+            return 'อาหาร'
+        } else if (type === 'water') {
+            return 'เครื่องดื่ม'
+        }
+    }
+
     return (
         <div>
             <div className='flex justify-between items-center px-4 py-2'>
@@ -26,9 +34,11 @@ export default async function FoodPage() {
                 <TableHeader>
                     <TableRow>
                         <TableHead className='w-1/4'>ภาพ</TableHead>
+                        <TableHead>ชนิด</TableHead>
                         <TableHead>ชื่อ</TableHead>
                         <TableHead>ประเภท</TableHead>
                         <TableHead>หมายเหตุ</TableHead>
+                        <TableHead>ราคา</TableHead>
                         <TableHead>สถานะ</TableHead>
                         <TableHead>Action</TableHead>
                     </TableRow>
@@ -45,9 +55,11 @@ export default async function FoodPage() {
                                         height={200}
                                     />
                                 </TableCell>
+                                <TableCell>{getFoodTypeName(item.foodType)}</TableCell>
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.FoodType.name}</TableCell>
-                                <TableCell>{item.remark || '-'}</TableCell>
+                                <TableCell>{item.remark}</TableCell>
+                                <TableCell>{item.price}</TableCell>
                                 <TableCell className='text-start'>
                                     {item.status === 'active' && (
                                         <div className='w-6 h-6 bg-green-500 rounded-full' />

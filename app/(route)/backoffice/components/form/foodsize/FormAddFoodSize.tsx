@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select'
 import { Save } from 'lucide-react'
 import { toast } from 'react-toastify'
+import SubmitFormBtn from '../../button/SubmitFormAddBtn'
 
 type FoodType = {
     id: string
@@ -93,10 +94,7 @@ export default function FormAddFoodSize({ setOpen, foodType }: FormAddFoodSizePr
                     className='focus:outline-none'
                 />
             </div>
-            <Button type='submit' className='flex items-center gap-1'>
-                <Save size={16} />
-                บันทึก
-            </Button>
+            <SubmitFormBtn />
         </form>
     )
 }

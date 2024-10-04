@@ -296,6 +296,7 @@ export async function addFood(formData: FormData) {
     const foodTypeId = formData.get('food_type_id') as string
     const image = formData.get('image') as File
     const price = formData.get('price') as string
+    const foodType = formData.get('type') as string
 
     const { imageUrl } = await uploadImageFood(image)
 
@@ -310,7 +311,8 @@ export async function addFood(formData: FormData) {
                 remark,
                 foodTypeId,
                 image: imageUrl,
-                price: Number(price)
+                price: Number(price),
+                foodType
             }
         })
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { addFood } from '@/actions/food-action'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -12,11 +11,11 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { FoodType } from '@prisma/client'
-import { Save } from 'lucide-react'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import SubmitFormAddBtn from '../../button/SubmitFormAddBtn'
 
 type FormAddFoodProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -59,77 +58,88 @@ export default function FormAddFood({ setOpen, foodType }: FormAddFoodProps) {
             })
         }
     }
-    
+
     return (
         <form className='grid gap-5 py-4' action={handleSubmit}>
-                <div className='grid gap-3'>
-                    <Label className='text-sm'>ประเภท</Label>
-                    <Select name='food_type_id'>
-                        <SelectTrigger>
-                            <SelectValue placeholder='เลือกประเภท' />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {foodType?.map(item => (
-                                <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
 
-                <div className='grid gap-3'>
-                    <Label>ภาพ</Label>
-                    <Input
-                        type='file'
-                        name='image'
-                        className='focus:outline-none'
-                        onChange={handlePreviewImage}
-                    />
-                    {previewImage ? (
-                        <div className='flex items-center justify-center'>
-                            <Image
-                                alt=''
-                                src={previewImage}
-                                width={450}
-                                height={450}
-                            />
-                        </div>
-                    ) : (
-                        <></>
-                    )}
-                </div>
+            <div className='grid gap-3'>
+                <Label className='text-sm'>ชนิด</Label>
+                <Select name='type'>
+                    <SelectTrigger>
+                        <SelectValue placeholder='เลือกชนิด' />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value='food'>อาหาร</SelectItem>
+                        <SelectItem value='water'>เครื่องดื่ม</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
 
-                <div className='grid gap-3'>
-                    <Label>ชื่อ</Label>
-                    <Input
-                        type='text'
-                        name='name'
-                        className='focus:outline-none'
-                    />
-                    
-                </div>
+            <div className='grid gap-3'>
+                <Label className='text-sm'>ประเภท</Label>
+                <Select name='food_type_id'>
+                    <SelectTrigger>
+                        <SelectValue placeholder='เลือกประเภท' />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {foodType?.map(item => (
+                            <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
 
-                <div className='grid gap-3'>
-                    <Label>หมายเหตุ</Label>
-                    <Input
-                        type='text'
-                        name='remark'
-                        className='focus:outline-none'
-                    />
-                </div>
+            <div className='grid gap-3'>
+                <Label>ภาพ</Label>
+                <Input
+                    type='file'
+                    name='image'
+                    className='focus:outline-none'
+                    onChange={handlePreviewImage}
+                />
+                {previewImage ? (
+                    <div className='flex items-center justify-center'>
+                        <Image
+                            alt=''
+                            src={previewImage}
+                            width={450}
+                            height={200}
+                        />
+                    </div>
+                ) : (
+                    <></>
+                )}
+            </div>
 
-                <div className='grid gap-3'>
-                    <Label>ราคา</Label>
-                    <Input
-                        type='number'
-                        name='price'
-                        className='focus:outline-none'
-                    />
-                </div>
+            <div className='grid gap-3'>
+                <Label>ชื่อ</Label>
+                <Input
+                    type='text'
+                    name='name'
+                    className='focus:outline-none'
+                />
 
-                <Button type='submit' className='flex items-center gap-1'>
-                    <Save size={16} />
-                    บันทึก
-                </Button>
+            </div>
+
+            <div className='grid gap-3'>
+                <Label>หมายเหตุ</Label>
+                <Input
+                    type='text'
+                    name='remark'
+                    className='focus:outline-none'
+                />
+            </div>
+
+            <div className='grid gap-3'>
+                <Label>ราคา</Label>
+                <Input
+                    type='number'
+                    name='price'
+                    className='focus:outline-none'
+                />
+            </div>
+
+            <SubmitFormAddBtn />
 
 
         </form>

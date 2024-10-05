@@ -11,8 +11,8 @@ export const revalidate = 0
 
 type FoodPageProps = {
     searchParams: {
-      q: string
-      page: string
+        q: string
+        page: string
     }
 }
 
@@ -54,38 +54,38 @@ export default async function FoodPage({ searchParams }: FoodPageProps) {
                         <TableHead>ประเภท</TableHead>
                         <TableHead>หมายเหตุ</TableHead>
                         <TableHead>ราคา</TableHead>
-                        <TableHead>สถานะ</TableHead>
-                        <TableHead>Action</TableHead>
+                        <TableHead className='text-center'>สถานะ</TableHead>
+                        <TableHead className='text-center'>Action</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody>
                     {foods?.map(item => (
-                            <TableRow key={item.id}>
-                                <TableCell>
-                                    <Image
-                                        alt=''
-                                        src={item.image}
-                                        width={200}
-                                        height={200}
-                                        className='object-cover rounded-md'
-                                    />
-                                </TableCell>
-                                <TableCell>{getFoodTypeName(item.foodType)}</TableCell>
-                                <TableCell>{item.name}</TableCell>
-                                <TableCell>{item.FoodType.name}</TableCell>
-                                <TableCell>{item.remark}</TableCell>
-                                <TableCell>{item.price}</TableCell>
-                                <TableCell className='text-start'>
-                                    {item.status === 'active' && (
-                                        <div className='w-6 h-6 bg-green-500 rounded-full' />
-                                    )}
-                                </TableCell>
-                                <TableCell className='space-x-2'>
-                                    <EditFoodBtn food={item} foodType={foodType ?? []} />
-                                    <RemoveFoodBtn id={item.id} />
-                                </TableCell>
-                            </TableRow>
+                        <TableRow key={item.id}>
+                            <TableCell>
+                                <Image
+                                    alt=''
+                                    src={item.image}
+                                    width={200}
+                                    height={200}
+                                    className='object-cover rounded-md'
+                                />
+                            </TableCell>
+                            <TableCell>{getFoodTypeName(item.foodType)}</TableCell>
+                            <TableCell>{item.name}</TableCell>
+                            <TableCell>{item.FoodType.name}</TableCell>
+                            <TableCell>{item.remark}</TableCell>
+                            <TableCell>{item.price}</TableCell>
+                            <TableCell className='text-center'>
+                                {item.status === 'active' && (
+                                    <div className='text-green-600 bg-green-300 px-2 py-1 rounded-xl'>Active</div>
+                                )}
+                            </TableCell>
+                            <TableCell className='space-x-2'>
+                                <EditFoodBtn food={item} foodType={foodType ?? []} />
+                                <RemoveFoodBtn id={item.id} />
+                            </TableCell>
+                        </TableRow>
                     ))}
                 </TableBody>
             </Table>

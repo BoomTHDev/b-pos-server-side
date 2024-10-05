@@ -47,7 +47,7 @@ export default async function FoodSizePage({ searchParams }: FoodSizePageProps) 
                         <TableHead>หมายเหตุ</TableHead>
                         <TableHead>คิดเงินเพิ่ม</TableHead>
                         <TableHead>สถานะ</TableHead>
-                        <TableHead>Action</TableHead>
+                        <TableHead className='text-center'>Action</TableHead>
                     </TableRow>
                 </TableHeader>
 
@@ -59,12 +59,12 @@ export default async function FoodSizePage({ searchParams }: FoodSizePageProps) 
                             <TableCell>{item.name}</TableCell>
                             <TableCell>{item.remark || '-'}</TableCell>
                             <TableCell className=''>{item.moneyAdded}</TableCell>
-                            <TableCell className='text-start'>
+                            <TableCell className='text-center'>
                                 {item.status === 'active' && (
-                                    <div className='w-6 h-6 bg-green-500 rounded-full' />
+                                    <div className='text-green-600 bg-green-300 px-2 py-1 w-3/4 rounded-xl'>Active</div>
                                 )}
                             </TableCell>
-                            <TableCell className='flex gap-2'>
+                            <TableCell className='space-x-2 text-center'>
                                 <EditFoodSizeBtn foodSize={item} foodType={foodType ?? []} />
                                 <RemoveFoodSizeBtn id={item.id} />
                             </TableCell>

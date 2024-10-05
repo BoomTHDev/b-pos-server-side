@@ -188,7 +188,3 @@ export default function FormEditFood({ setOpen, food, foodType }: FormEditFoodPr
         </form>
     )
 }
-
-function useEfftec(arg0: any) {
-    throw new Error("Function not implemented.")
-}

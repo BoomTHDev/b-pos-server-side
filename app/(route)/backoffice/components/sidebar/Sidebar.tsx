@@ -7,7 +7,6 @@ import Menu from './Menu'
 import { useRecoilValue } from 'recoil'
 import { sideNavState } from '@/store/state/side-nav-state'
 import SignOutBtn from "./SignOutBtn";
-import { usePathname } from "next/navigation";
 import { CollapsibleMenu } from "./CollapsibleMenu";
 import { CollapsibleItem } from "./CollapsibleItem"
 

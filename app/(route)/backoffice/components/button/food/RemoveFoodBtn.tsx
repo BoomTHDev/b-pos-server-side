@@ -1,4 +1,4 @@
-''
+'use client'
 
 import { removeFood } from "@/actions/food-action";
 import { Button } from "@/components/ui/button";

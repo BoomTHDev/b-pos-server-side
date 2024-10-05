@@ -431,7 +431,6 @@ export async function editFood(formData: FormData) {
                 foodType
             }
         })
-        revalidatePath('/backoffice/food')
         return { message: 'อัพเดทข้อมูลสำเร็จ', status: true }
     } catch (error: any) {
         console.log(error)

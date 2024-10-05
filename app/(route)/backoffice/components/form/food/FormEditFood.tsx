@@ -12,7 +12,7 @@ import {
 import { Food, FoodType } from "@prisma/client"
 import SubmitFormBtn from "../../button/SubmitFormAddBtn"
 import { editFood } from "@/actions/food-action"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
@@ -28,6 +28,10 @@ export default function FormEditFood({ setOpen, food, foodType }: FormEditFoodPr
     const [previewImage, setPreviewImage] = useState('')
     const router = useRouter()
 
+    useEffect(() => {
+        setPreviewImage(food.image)
+    }, [food.image])
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (file) {
@@ -36,10 +40,12 @@ export default function FormEditFood({ setOpen, food, foodType }: FormEditFoodPr
         } else {
             setPreviewImage('')
         }
-
     }
 
     const handleSubmit = async (formData: FormData) => {
+        if (!formData.get('image') || (formData.get('image') as File).size === 0) {
+            formData.delete('image')
+        }
         const response = await editFood(formData)
         if (response.status === true) {
             toast.success(response.message, {
@@ -181,4 +187,8 @@ export default function FormEditFood({ setOpen, food, foodType }: FormEditFoodPr
 
         </form>
     )
+}
+
+function useEfftec(arg0: any) {
+    throw new Error("Function not implemented.")
 }

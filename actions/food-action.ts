@@ -409,29 +409,45 @@ export async function editFood(formData: FormData) {
     const name = formData.get('name') as string
     const foodTypeId = formData.get('food_type_id') as string
     const foodType = formData.get('type') as string
-    const image = formData.get('image') as File
+    const image = formData.get('image') as File || null
     const status = formData.get('status') as string
     const price = formData.get('price') as string
     const remark = formData.get('remark') as string
 
-    const { imageUrl } = await uploadImageFood(image)
-
     try {
-        await db.food.update({
-            where: {
-                id
-            },
-            data: {
-                name,
-                foodTypeId,
-                image: imageUrl,
-                price: Number(price),
-                remark,
-                status,
-                foodType
-            }
-        })
-        return { message: 'อัพเดทข้อมูลสำเร็จ', status: true }
+        if (image) {
+            const { imageUrl } = await uploadImageFood(image)
+            await db.food.update({
+                where: {
+                    id
+                },
+                data: {
+                    name,
+                    foodTypeId,
+                    image: imageUrl,
+                    price: Number(price),
+                    remark,
+                    status,
+                    foodType
+                }
+            })
+            return { message: 'อัพเดทข้อมูลสำเร็จ', status: true }
+        } else {
+            await db.food.update({
+                where: {
+                    id
+                },
+                data: {
+                    name,
+                    foodTypeId,
+                    price: Number(price),
+                    remark,
+                    status,
+                    foodType
+                }
+            })
+            return { message: 'อัพเดทข้อมูลสำเร็จ', status: true }
+        }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }

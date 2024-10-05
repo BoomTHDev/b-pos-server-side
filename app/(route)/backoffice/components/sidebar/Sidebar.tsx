@@ -9,6 +9,7 @@ import { sideNavState } from '@/store/state/side-nav-state'
 import SignOutBtn from "./SignOutBtn";
 import { CollapsibleMenu } from "./CollapsibleMenu";
 import { CollapsibleItem } from "./CollapsibleItem"
+import Link from "next/link";
 
 
 type SidebarProps = {

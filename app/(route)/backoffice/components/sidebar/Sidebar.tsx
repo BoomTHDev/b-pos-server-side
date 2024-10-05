@@ -7,7 +7,6 @@ import Menu from './Menu'
 import { useRecoilValue } from 'recoil'
 import { sideNavState } from '@/store/state/side-nav-state'
 import SignOutBtn from "./SignOutBtn";
-import Link from 'next/link'
 import { usePathname } from "next/navigation";
 import { CollapsibleMenu } from "./CollapsibleMenu";
 import { CollapsibleItem } from "./CollapsibleItem"
@@ -22,7 +21,6 @@ type SidebarProps = {
 export default function Sidebar({ title, username, role }: SidebarProps) {
 
     const open = useRecoilValue(sideNavState)
-    const pathname = usePathname()
     return (
         <div className={`bg-gray-900 flex flex-col justify-between w-64 fixed top-0 bottom-0 left-0 transition-transform duration-300 overflow-y-auto
         ${open ? 'translate-x-0' : '-translate-x-full'}`}>

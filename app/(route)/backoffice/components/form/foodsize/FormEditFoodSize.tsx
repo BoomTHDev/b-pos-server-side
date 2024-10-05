@@ -96,7 +96,7 @@ export default function FormEditFoodType({ setOpen, foodSize, foodType }: FormEd
                 />
             </div>
             <div className='grid gap-3'>
-                <Label className='text-sm'>หมายเหตุ</Label>
+                <Label className='text-sm'>สถานะ</Label>
                 <Select
                     name='status'
                     defaultValue={foodSize.status}

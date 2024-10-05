@@ -4,6 +4,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import Image from 'next/image'
 import Pagination from "../components/pagination/Pagination";
 import Search from "../components/search/Search";
+import EditFoodBtn from "../components/button/food/EditFoodBtn";
+import RemoveFoodBtn from "../components/button/food/RemoveFoodBtn";
 
 export const revalidate = 0
 
@@ -79,9 +81,9 @@ export default async function FoodPage({ searchParams }: FoodPageProps) {
                                         <div className='w-6 h-6 bg-green-500 rounded-full' />
                                     )}
                                 </TableCell>
-                                <TableCell className='flex gap-2'>
-                                    {/* <EditTasteBtn tastes={item} foodType={foodType ?? []} />
-                                    <RemoveTasteBtn id={item.id} /> */}
+                                <TableCell className='space-x-2'>
+                                    <EditFoodBtn food={item} foodType={foodType ?? []} />
+                                    <RemoveFoodBtn id={item.id} />
                                 </TableCell>
                             </TableRow>
                     ))}

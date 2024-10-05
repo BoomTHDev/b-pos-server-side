@@ -232,6 +232,8 @@ export async function getTastes(q: string, page: string) {
             orderBy: {
                 createdAt: 'desc'
             },
+            skip: (Number(page) - 1) * ITEM_PER_PAGE,
+            take: ITEM_PER_PAGE,
             include: {
                 FoodType: true
             }
@@ -396,6 +398,60 @@ export async function getFoods(q: string, page: string) {
         })
 
         return { foods, totalFoods, status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+export async function editFood(formData: FormData) {
+    const id = formData.get('id') as string
+    const name = formData.get('name') as string
+    const foodTypeId = formData.get('food_type_id') as string
+    const foodType = formData.get('type') as string
+    const image = formData.get('image') as File
+    const status = formData.get('status') as string
+    const price = formData.get('price') as string
+    const remark = formData.get('remark') as string
+
+    const { imageUrl } = await uploadImageFood(image)
+
+    try {
+        await db.food.update({
+            where: {
+                id
+            },
+            data: {
+                name,
+                foodTypeId,
+                image: imageUrl,
+                price: Number(price),
+                remark,
+                status,
+                foodType
+            }
+        })
+        revalidatePath('/backoffice/food')
+        return { message: 'อัพเดทข้อมูลสำเร็จ', status: true }
+    } catch (error: any) {
+        console.log(error)
+        return { error: error.message, status: false }
+    }
+}
+
+export async function removeFood(id: string) {
+    try {
+        await db.food.update({
+            where: {
+                id
+            },
+            data: {
+                status: 'not_active'
+            }
+        })
+        
+        revalidatePath('/backoffice/food')
+        return { message: 'ลบข้อมูลสําเร็จ', status: true }
     } catch (error: any) {
         console.log(error)
         return { error: error.message, status: false }

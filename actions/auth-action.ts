@@ -4,7 +4,7 @@ import { db } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 import * as jose from 'jose'
 import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 
 export async function signIn(formData: FormData) {
     const username = formData.get('username') as string
@@ -58,6 +58,8 @@ export async function signIn(formData: FormData) {
 }
 
 export async function signOut() {
+    const usernameHeader = headers().get('x-user-username')
     cookies().set('token_user', '')
+    console.log(usernameHeader + ' logged out!')
     redirect('/signin')
 }
